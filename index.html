@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吳奇翰's 個人部落格</title>
+    <!-- 引入 Bootstrap 5.3 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- 引入 Google Fonts - Inter (可選，讓字體更現代) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 引入 Font Awesome 5 (用於星星圖示) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- 自訂 CSS 實現亮色主題和圓角效果 -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* 淺色背景 (Light Gray) */
+            color: #212529; /* 深色文字 (Dark Text) */
+        }
+
+        /* 內容區塊的風格 */
+        .content-card {
+            background-color: #ffffff; /* 卡片背景白色 */
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 淺色陰影 */
+            border: 1px solid #dee2e6; /* 輕微淺色邊框 */
+        }
+
+        /* 導覽列風格 */
+        .navbar-custom {
+            background-color: #ffffff !important; /* 白色導覽列 */
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* 技能評分星星顏色 */
+        .star-filled {
+            color: #ffc107; /* Bootstrap 黃色 (不變) */
+        }
+
+        .star-empty {
+            color: #adb5bd; /* 灰色 */
+        }
+
+        /* 響應式媒體嵌入 - 保持不變 */
+        .media-responsive {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .media-responsive iframe,
+        .media-responsive video,
+        .media-responsive embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+        }
+
+        /* 頁腳風格 */
+        footer {
+            background-color: #e9ecef; /* 淺灰背景 */
+            color: #6c757d; /* 深灰文字 */
+            padding: 1rem 0;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        /* 側邊欄塊引號樣式 */
+        .blockquote-custom {
+            border-left: 5px solid #0d6efd; /* Bootstrap Primary 藍色 */
+            padding-left: 1rem;
+            background-color: #f8f9fa; /* 淺色背景 */
+        }
+
+        /* 確保圖片圓角和響應式 */
+        .img-fluid {
+            border-radius: 0.5rem;
+        }
+        
+        /* 調整 Accordion 在淺色主題下的樣式 */
+        .accordion-item {
+            background-color: #ffffff;
+            border-color: #dee2e6;
+        }
+
+        .accordion-button {
+            color: #212529; /* Dark text */
+            background-color: #f8f9fa; /* Light background */
+        }
+
+        .accordion-button:not(.collapsed) {
+            color: #0d6efd; /* Primary blue when open */
+            background-color: #e9ecef; /* Slightly darker light background when open */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 頁頭區 (Navbar) -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top navbar-custom shadow-lg">
+            <div class="container">
+                <a class="navbar-brand fw-bold fs-4 text-primary" href="#">吳奇翰 的個人部落格</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="切換導覽">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section1">關於我</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section2">學經歷</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section3">工作技能</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section4">作品集</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section7">自學區</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section8">更多資訊</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主內容區 -->
+    <main class="container my-5">
+        <div class="row">
+
+            <!-- 左側主要內容區 (佔 8 欄, 手機佔滿 12 欄) -->
+            <div class="col-lg-8">
+
+                <!-- 個人介紹 -->
+                <article id="section1" class="content-card">
+                    <header class="mb-4 border-bottom pb-3 border-secondary">
+                        <h2 class="h3 fw-bold text-primary">關於我</h2>
+                        <p class="text-secondary">在此部落格中，將分享我在工作上及生活中的點滴。</p>
+                    </header>
+                    
+                    <section class="d-flex align-items-center mb-4">
+                        <!-- 頭像 (使用 Placeholder Image URL) -->
+                        <div class="flex-shrink-0 me-4">
+                            <!-- 請替換成您的頭像 URL -->
+                            <img src="assets\images\pinterest_376965431325131821.jpg" alt="吳奇翰 picture"
+                                class="rounded-circle shadow-lg" width="120" height="120">
+                        </div>
+                        <div>
+                            <h1 class="h2 fw-bolder mb-1">吳奇翰</h1>
+                            <p class="mb-0">
+                                <em>
+                                    <a href="https://www.ntue.edu.tw/" class="text-info text-decoration-none">國立台北教育大學-----</a>數學暨資訊教育學系
+                                </em>
+                            </p>
+                        </div>
+                    </section>
+                    
+                    <section>
+                        <p class="lead">我是一位大學生，研究方向為<mark class="bg-warning text-dark rounded px-1">AI應用</mark> 和 <mark class="bg-warning text-dark rounded px-1">AI在教育上應用</mark>，除外寒暑假我也帶了不少的國小梯隊以充實我在教學上的經驗</p>
+                        <p>我也喜歡研究其他領域的內容，如：心理學等</p>
+                    </section>
+                </article>
+
+                <!-- 工作經歷介紹 -->
+                <article id="section2" class="content-card">
+                    <header class="mb-4 border-bottom pb-3 border-secondary">
+                        <h2 class="h3 fw-bold text-primary">學經歷</h2>
+                    </header>
+                    <section class="table-responsive">
+                        <!-- 使用 table-light -->
+                        <table class="table table-light table-striped table-hover rounded-3 overflow-hidden">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>事項</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2023-2027</td>
+                                    <td>國立台北教育大學數學暨資訊教育學系</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </article>
+
+                <!-- 技能介紹 -->
+                <article id="section3" class="content-card">
+                    <header class="mb-4 border-bottom pb-3 border-secondary">
+                        <h2 class="h3 fw-bold text-primary">工作技能</h2>
+                    </header>
+                    <section class="row">
+                        <!-- 技能評分函式 (使用 JS 簡化 HTML) -->
+                        <script>
+                            function renderStars(rating) {
+                                let stars = '';
+                                for (let i = 0; i < 5; i++) {
+                                    if (i < rating) {
+                                        stars += '<i class="fas fa-star star-filled"></i>';
+                                    } else {
+                                        stars += '<i class="far fa-star star-empty"></i>';
+                                    }
+                                }
+                                return stars;
+                            }
+                        </script>
+
+                        <!-- 人工智慧相關 -->
+                        <div class="col-md-4 mb-4">
+                            <h4 class="h5 text-info mb-3">人工智慧相關</h4>
+                            <!-- 使用 table-light -->
+                            <table class="table table-light table-borderless">
+                                <tr><td>Langchain</td><td><script>document.write(renderStars(3));</script></td></tr>
+                                <tr><td>Tensorflow</td><td><script>document.write(renderStars(2));</script></td></tr>
+                                <tr><td>Pytorch</td><td><script>document.write(renderStars(2));</script></td></tr>
+                                <tr><td>Llamaindex</td><td><script>document.write(renderStars(1));</script></td></tr>
+                            </table>
+                        </div>
+
+                        <!-- 前端相關 -->
+                        <div class="col-md-4 mb-4">
+                            <h4 class="h5 text-info mb-3">前端相關</h4>
+                            <!-- 使用 table-light -->
+                            <table class="table table-light table-borderless">
+                                <tr><td>Vue.js</td><td><script>document.write(renderStars(2));</script></td></tr>
+                                <tr><td>Bootstrap 5</td><td><script>document.write(renderStars(5));</script></td></tr>
+                                <tr><td>Angular</td><td><script>document.write(renderStars(2));</script></td></tr>
+                                <tr><td>Flutter</td><td><script>document.write(renderStars(3));</script></td></tr>
+                            </table>
+                        </div>
+
+                        <!-- 後端相關 -->
+                        <div class="col-md-4 mb-4">
+                            <h4 class="h5 text-info mb-3">後端相關</h4>
+                            <!-- 使用 table-light -->
+                            <table class="table table-light table-borderless">
+                                <tr><td>Python</td><td><script>document.write(renderStars(5));</script></td></tr>
+                                <tr><td>C</td><td><script>document.write(renderStars(3));</script></td></tr>
+                                <tr><td>Javascript</td><td><script>document.write(renderStars(2));</script></td></tr>
+                                <tr><td>C++</td><td><script>document.write(renderStars(3));</script></td></tr>
+                            </table>
+                        </div>
+                    </section>
+                </article>
+
+                <!-- 音樂、視訊、圖片作品集 -->
+                <article id="section4" class="content-card">
+                    <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">作品集</h2>
+                    
+                    <!-- 音訊介紹 -->
+                    <section class="mb-5">
+                        <h4 class="h5 text-info mb-3">音訊介紹</h4>
+                        <!-- 路徑更新: 移除 uploaded:assets.zip/ -->
+                        <audio controls class="w-100 rounded-lg">
+                            <source src="assets/audio/Laptop Nomad.mp3" type="audio/mpeg">
+                            您的瀏覽器不支援 HTML5 音訊。
+                        </audio>
+                    </section>
+
+                    <!-- 視訊作品介紹 -->
+                    <section class="mb-5">
+                        <h4 class="h5 text-info mb-3">視訊介紹</h4>
+                        <div class="row">
+                            <!-- 影片 1: Flutter Demo (保持不變) -->
+                            <div class="col-md-6 mb-4">
+                                <div class="media-responsive">
+                                    <video controls>
+                                        <source src="assets/video/14ceef26-90f0-44e0-bd23-17f8960a2dda.mp4"
+                                            type="video/mp4">
+                                        您的瀏覽器不支援影片播放。
+                                    </video>
+                                </div>
+                                <p class="text-center text-secondary">Flutter Demo</p>
+                            </div>
+                            <!-- 影片 2: Linebot Demo (保持不變) -->
+                            <div class="col-md-6 mb-4">
+                                <div class="media-responsive">
+                                    <video controls>
+                                        <source src="assets/video/16c7158b-7dc8-440a-b4f5-b29004768a1f.mp4"
+                                            type="video/mp4">
+                                        您的瀏覽器不支援影片播放。
+                                    </video>
+                                </div>
+                                <p class="text-center text-secondary">Linebot Demo</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 圖片作品集介紹與描述 -->
+                    <section>
+                        <h4 class="h5 text-info mb-3">旅行照片集</h4>
+                        <div class="row g-4">
+                            <!-- 圖片 1: 幽暗的水池 -->
+                            <div class="col-md-6">
+                                <figure class="text-center">
+                                    <!-- 路徑更新: 移除 uploaded:assets.zip/ -->
+                                    <img src="assets/images/Gemini_Generated_Image_78umcp78umcp78um.png"
+                                        alt="幽暗的水池" class="img-fluid shadow">
+                                    <figcaption class="mt-2 text-secondary">幽暗的水池 (AI 生成)</figcaption>
+                                </figure>
+                            </div>
+                            <!-- 圖片 2: 壯麗的山景 -->
+                            <div class="col-md-6">
+                                <figure class="text-center">
+                                    <!-- 路徑更新: 移除 uploaded:assets.zip/ -->
+                                    <img src="assets/images/Gemini_Generated_Image_p2rh5zp2rh5zp2rh.png"
+                                        alt="壯麗的山景" class="img-fluid shadow">
+                                    <figcaption class="mt-2 text-secondary">壯麗的山景</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+
+                <!-- 自學區 (YouTube 嵌入) -->
+                <article id="section7" class="content-card">
+                    <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">自學區</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- 數位邏輯設計 -->
+                        <div class="mb-4">
+                            <div class="media-responsive">
+                                <iframe
+                                    src="https://www.youtube.com/embed/videoseries?si=qLQ6DLk47gZFKfk4&amp;list=PLXxs-fSMcpYdwkCsnTXAkpvI2afmUkQgI"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="text-secondary mt-2">數位邏輯設計：廣受好評的教學，推薦必看，這堂課拯救了非常多人</p>
+                        </div>
+                        
+                        <!-- 程式設計 (C++) -->
+                        <div class="mb-4">
+                            <div class="media-responsive">
+                                <iframe
+                                    src="https://www.youtube.com/embed/videoseries?si=FQpmZ-CVZeQz5dud&amp;list=PLCX-BLZ1hDpBuSFO8-TtF_q5QlBfeb6Q0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="text-secondary mt-2">程式設計：程式語言為C++，適合初學者學習程式的課程，講得非常詳細</p>
+                        </div>
+                        
+                        <!-- 微積分系列課程 -->
+                        <div class="mb-4">
+                            <div class="media-responsive">
+                                <iframe
+                                    src="https://www.youtube.com/embed/videoseries?si=Qz-wqREY3HAxOnqJ&amp;list=PLCX-BLZ1hDpCxlZxPO6RRTcwauTl683Vt"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="text-secondary mt-2">微積分系列課程：雖然是全英文教學，但我認為是網路上最好學習微積分的管道</p>
+                        </div>
+                        
+                        <!-- 電子學 -->
+                        <div class="mb-4">
+                            <div class="media-responsive">
+                                <iframe
+                                    src="https://www.youtube.com/embed/videoseries?si=O8fbytbNsPd7FryF&amp;list=PLj6E8qlqmkFtaNMQgkZxZujfU8rfPx9uW"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="text-secondary mt-2">電子學：適合初學者學習電子學的課程，講得非常詳細</p>
+                        </div>
+                        
+                        <!-- 線性代數系列課程 -->
+                        <div class="mb-4">
+                            <div class="media-responsive">
+                                <iframe
+                                    src="https://www.youtube.com/embed/xyAuNHPsq-g?si=l9DrgE4dOcc0iXuT"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <p class="text-secondary mt-2">線性代數系列課程：如果對於某個定理不清楚可以去這系列課程，推推！！</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 嵌入PDF文件與地圖 -->
+                <article id="section8" class="content-card">
+                    <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">更多資訊</h2>
+                    
+                    <!-- PDF 文件嵌入 -->
+                    <h4 class="h5 text-info mb-3">演算法文件 (PDF)</h4>
+                    <div class="media-responsive mb-4" style="padding-bottom: 120%;">
+                        <!-- 路徑更新: 移除 uploaded:assets.zip/ -->
+                        <embed src="assets/pdf/演算法.pdf" type="application/pdf">
+                    </div>
+
+                    <!-- 地圖嵌入 -->
+                    <h4 class="h5 text-info mb-3">國立台北教育大學位置</h4>
+                    <div class="media-responsive">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d625.1410365777245!2d121.54507824605244!3d25.024433830023494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a908a8232611%3A0xeebfb2d71a5025c7!2z5ZyL56uL6Ie65YyX5pWZ6IKy5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1763965594717!5m2!1szh-TW!2stw"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </article>
+
+            </div> <!-- End of col-lg-8 -->
+
+            <!-- 右側側邊欄 (佔 4 欄, 手機佔滿 12 欄) -->
+            <div class="col-lg-4">
+                <aside class="content-card sticky-top" style="top: 80px;">
+                    <!-- 側邊欄補充資訊 -->
+                    <blockquote class="blockquote-custom mb-4">
+                        <h3 class="h5 fw-bold text-primary">學習小貼士</h3>
+                        <p class="mb-0 text-secondary">記得提前預習課程內容,並查詢相關資料以加深理解。</p>
+                    </blockquote>
+                    
+                    <!-- 互動元素 (Details) -->
+                    <div class="accordion" id="accordionTips">
+                        <div class="accordion-item border-secondary">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    點擊查看學習提示
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionTips">
+                                <div class="accordion-body text-secondary">
+                                    建議攜帶筆記本與筆，方便隨時記錄課堂中的關鍵知識點與靈感。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div> <!-- End of col-lg-4 -->
+
+        </div> <!-- End of row -->
+    </main>
+
+    <!-- 頁尾區 -->
+    <footer>
+        <div class="container text-center">
+            <p class="mb-1">聯絡我們：<a href="mailto:s111213223@stu.ntue.edu.tw" class="text-info text-decoration-none">s111213223@stu.ntue.edu.tw</a></p>
+            <time datetime="2024-12-01" class="d-block small">最後更新日期：2024年12月1日</time>
+        </div>
+    </footer>
+
+    <!-- 引入 Bootstrap 5.3 JS Bundle CDN (包含 Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
