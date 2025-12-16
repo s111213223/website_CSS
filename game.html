@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霓虹生存戰 - Neon Survival</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            /* 防止選取文字 */
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            /* 防止滾動條出現 */
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* 遊戲畫布 */
+        canvas {
+            display: block;
+        }
+
+        /* UI 介面層 */
+        .ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            /* 讓點擊穿透到 canvas */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            /* 確保 UI 在最上層 */
+        }
+
+        /* 分數顯示 (左上) */
+        #scoreEl {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* 生命值顯示 (左上，分數下方) */
+        #hpEl {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4444;
+            /* 血量用紅色 */
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 68, 68, 0.3);
+        }
+
+        /* 時間倒數顯示 (正上方) */
+        #timerEl {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffeb3b;
+            /* 黃色 */
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 235, 59, 0.3);
+        }
+
+        /* 學生資訊 (右上) */
+        #studentInfo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1rem;
+            color: #aaa;
+            /* 稍微低調的顏色 */
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: right;
+        }
+
+        /* 遊戲選單 (開始/結束) */
+        #modalEl {
+            background-color: rgba(15, 23, 42, 0.95);
+            padding: 3rem;
+            border-radius: 1rem;
+            text-align: center;
+            pointer-events: auto;
+            /* 恢復選單的點擊功能 */
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        #bigScore {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 1rem;
+            display: none;
+            /* 初始隱藏 */
+        }
+
+        #scoreLabel {
+            font-size: 1rem;
+            color: #94a3b8;
+            display: none;
+        }
+
+        button {
+            background: linear-gradient(45deg, #00ffff, #0088ff);
+            border: none;
+            padding: 15px 40px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* 操作說明 */
+        .controls-hint {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .key {
+            display: inline-block;
+            background: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border-bottom: 2px solid #111;
+            font-family: monospace;
+            color: #eee;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 分數 HUD -->
+    <div id="scoreEl">分數: 0</div>
+    <!-- 生命值 HUD -->
+    <div id="hpEl">生命: 100</div>
+    <!-- 時間倒數 HUD -->
+    <div id="timerEl">時間: 2:00</div>
+    <!-- 學生資訊 HUD -->
+    <div id="studentInfo">111213223_數資三甲_吳奇翰_</div>
+
+    <!-- 遊戲選單 Modal -->
+    <div class="ui-layer" id="uiLayer">
+        <div id="modalEl">
+            <h1 id="gameTitle">霓虹生存戰</h1>
+            <div id="scoreLabel">最終分數</div>
+            <div id="bigScore">0</div>
+            <p id="gameDesc">
+                這是一場生存考驗。<br>
+                在 2 分鐘內盡可能獲得高分！<br>
+                <span style="color: #ff4444; font-size: 0.9em;">(被敵人觸碰扣除10點生命值)</span>
+            </p>
+            <button id="startGameBtn">開始遊戲</button>
+
+            <div class="controls-hint">
+                <p>移動: <span class="key">W</span><span class="key">A</span><span class="key">S</span><span
+                        class="key">D</span></p>
+                <p>瞄準: 滑鼠游標 | 射擊: 滑鼠左鍵</p>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // 畫布設定
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI 元素
+        const scoreEl = document.getElementById('scoreEl');
+        const hpEl = document.getElementById('hpEl');
+        const timerEl = document.getElementById('timerEl'); // 時間顯示元素
+        const startGameBtn = document.getElementById('startGameBtn');
+        const modalEl = document.getElementById('modalEl');
+        const uiLayer = document.getElementById('uiLayer');
+        const bigScoreEl = document.getElementById('bigScore');
+        const scoreLabelEl = document.getElementById('scoreLabel');
+        const gameDescEl = document.getElementById('gameDesc');
+        const gameTitleEl = document.getElementById('gameTitle');
+
+        // 調整畫布大小填滿視窗
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // 遊戲變數
+        let player;
+        let projectiles = [];
+        let enemies = [];
+        let particles = [];
+        let animationId;
+        let intervalId;
+        let score = 0;
+        let hp = 100;
+        let gameActive = false;
+
+        // 計時器變數
+        let timerInterval;
+        let timeLeft = 120; // 120秒 = 2分鐘
+
+        // 滑鼠位置
+        const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
+        // 玩家類別
+        class Player {
+            constructor(x, y, radius, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = { x: 0, y: 0 };
+                this.speed = 5;
+                this.friction = 0.9;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update(keys) {
+                if (keys.w) this.velocity.y -= 1;
+                if (keys.s) this.velocity.y += 1;
+                if (keys.a) this.velocity.x -= 1;
+                if (keys.d) this.velocity.x += 1;
+
+                this.x += this.velocity.x * this.speed * 0.1;
+                this.y += this.velocity.y * this.speed * 0.1;
+
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+
+                if (this.x - this.radius < 0) this.x = this.radius;
+                if (this.x + this.radius > canvas.width) this.x = canvas.width - this.radius;
+                if (this.y - this.radius < 0) this.y = this.radius;
+                if (this.y + this.radius > canvas.height) this.y = canvas.height - this.radius;
+
+                this.draw();
+            }
+        }
+
+        // 子彈類別
+        class Projectile {
+            constructor(x, y, radius, color, velocity) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = velocity;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.draw();
+                this.x = this.x + this.velocity.x;
+                this.y = this.y + this.velocity.y;
+            }
+        }
+
+        // 敵人類別
+        class Enemy {
+            constructor(x, y, radius, color, velocity) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = velocity;
+                this.speedMultiplier = Math.random() * 0.5 + 0.5;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            update() {
+                this.draw();
+
+                const angle = Math.atan2(player.y - this.y, player.x - this.x);
+                const difficultySpeed = 1 + (score / 2000);
+
+                this.velocity = {
+                    x: Math.cos(angle) * this.speedMultiplier * difficultySpeed,
+                    y: Math.sin(angle) * this.speedMultiplier * difficultySpeed
+                };
+
+                this.x = this.x + this.velocity.x;
+                this.y = this.y + this.velocity.y;
+            }
+        }
+
+        // 粒子特效
+        const friction = 0.98;
+        class Particle {
+            constructor(x, y, radius, color, velocity) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = velocity;
+                this.alpha = 1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.draw();
+                this.velocity.x *= friction;
+                this.velocity.y *= friction;
+                this.x = this.x + this.velocity.x;
+                this.y = this.y + this.velocity.y;
+                this.alpha -= 0.02;
+            }
+        }
+
+        // 更新計時器顯示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            // 補零格式化，例如 05
+            const secondsStr = seconds < 10 ? `0${seconds}` : seconds;
+            timerEl.innerHTML = `時間: ${minutes}:${secondsStr}`;
+        }
+
+        // 開始計時
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timeLeft = 120; // 重置時間
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    gameOver(true); // true 表示是時間到結束的
+                }
+            }, 1000);
+        }
+
+        // 生成敵人
+        function spawnEnemies() {
+            let spawnRate = 1000 - (score * 0.5);
+            if (spawnRate < 400) spawnRate = 400;
+
+            if (intervalId) clearInterval(intervalId);
+
+            intervalId = setInterval(() => {
+                const radius = Math.random() * (30 - 10) + 10;
+                let x;
+                let y;
+
+                if (Math.random() < 0.5) {
+                    x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+                    y = Math.random() * canvas.height;
+                } else {
+                    x = Math.random() * canvas.width;
+                    y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+                }
+
+                const color = `hsl(${Math.random() * 50}, 100%, 50%)`;
+
+                const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+                const velocity = {
+                    x: Math.cos(angle),
+                    y: Math.sin(angle)
+                }
+
+                enemies.push(new Enemy(x, y, radius, color, velocity));
+            }, spawnRate);
+        }
+
+        // 遊戲主迴圈
+        function animate() {
+            if (!gameActive) return;
+            animationId = requestAnimationFrame(animate);
+
+            ctx.fillStyle = 'rgba(13, 13, 13, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            player.update(keys);
+
+            particles.forEach((particle, index) => {
+                if (particle.alpha <= 0) {
+                    particles.splice(index, 1);
+                } else {
+                    particle.update();
+                }
+            });
+
+            projectiles.forEach((projectile, index) => {
+                projectile.update();
+
+                if (
+                    projectile.x + projectile.radius < 0 ||
+                    projectile.x - projectile.radius > canvas.width ||
+                    projectile.y + projectile.radius < 0 ||
+                    projectile.y - projectile.radius > canvas.height
+                ) {
+                    setTimeout(() => {
+                        projectiles.splice(index, 1);
+                    }, 0);
+                }
+            });
+
+            enemies.forEach((enemy, enemyIndex) => {
+                enemy.update();
+
+                const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+                if (dist - enemy.radius - player.radius < 1) {
+                    hp -= 10;
+                    hpEl.innerHTML = `生命: ${hp}`;
+
+                    for (let i = 0; i < enemy.radius * 2; i++) {
+                        particles.push(new Particle(
+                            enemy.x,
+                            enemy.y,
+                            Math.random() * 2,
+                            enemy.color,
+                            {
+                                x: (Math.random() - 0.5) * (Math.random() * 6),
+                                y: (Math.random() - 0.5) * (Math.random() * 6)
+                            }
+                        ));
+                    }
+                    enemies.splice(enemyIndex, 1);
+
+                    if (hp <= 0) {
+                        gameOver(false); // false 表示是死亡結束
+                    }
+                }
+
+                projectiles.forEach((projectile, projectileIndex) => {
+                    const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
+
+                    if (dist - enemy.radius - projectile.radius < 1) {
+
+                        for (let i = 0; i < enemy.radius * 2; i++) {
+                            particles.push(new Particle(
+                                projectile.x,
+                                projectile.y,
+                                Math.random() * 2,
+                                enemy.color,
+                                {
+                                    x: (Math.random() - 0.5) * (Math.random() * 6),
+                                    y: (Math.random() - 0.5) * (Math.random() * 6)
+                                }
+                            ));
+                        }
+
+                        if (enemy.radius - 10 > 10) {
+                            score += 50;
+                            scoreEl.innerHTML = `分數: ${score}`;
+
+                            setTimeout(() => {
+                                enemies.splice(enemyIndex, 1);
+                                projectiles.splice(projectileIndex, 1);
+                            }, 0);
+                        } else {
+                            score += 100;
+                            scoreEl.innerHTML = `分數: ${score}`;
+
+                            setTimeout(() => {
+                                enemies.splice(enemyIndex, 1);
+                                projectiles.splice(projectileIndex, 1);
+                            }, 0);
+                        }
+                    }
+                });
+            });
+        }
+
+        const keys = {
+            w: false,
+            a: false,
+            s: false,
+            d: false
+        };
+
+        window.addEventListener('keydown', (event) => {
+            switch (event.key.toLowerCase()) {
+                case 'w': case 'arrowup': keys.w = true; break;
+                case 'a': case 'arrowleft': keys.a = true; break;
+                case 's': case 'arrowdown': keys.s = true; break;
+                case 'd': case 'arrowright': keys.d = true; break;
+            }
+        });
+
+        window.addEventListener('keyup', (event) => {
+            switch (event.key.toLowerCase()) {
+                case 'w': case 'arrowup': keys.w = false; break;
+                case 'a': case 'arrowleft': keys.a = false; break;
+                case 's': case 'arrowdown': keys.s = false; break;
+                case 'd': case 'arrowright': keys.d = false; break;
+            }
+        });
+
+        window.addEventListener('mousedown', (event) => {
+            if (!gameActive) return;
+
+            const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x);
+            const velocity = {
+                x: Math.cos(angle) * 8,
+                y: Math.sin(angle) * 8
+            };
+
+            projectiles.push(new Projectile(
+                player.x,
+                player.y,
+                5,
+                '#00ffff',
+                velocity
+            ));
+
+            player.x -= velocity.x * 0.5;
+            player.y -= velocity.y * 0.5;
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        function init() {
+            player = new Player(canvas.width / 2, canvas.height / 2, 15, 'white');
+            projectiles = [];
+            enemies = [];
+            particles = [];
+            score = 0;
+            hp = 100;
+            scoreEl.innerHTML = `分數: 0`;
+            hpEl.innerHTML = `生命: ${hp}`;
+            gameActive = true;
+
+            startTimer(); // 開始倒數
+        }
+
+        // 遊戲結束邏輯
+        function gameOver(isTimeUp) {
+            gameActive = false;
+            clearInterval(intervalId);
+            clearInterval(timerInterval); // 停止計時
+            cancelAnimationFrame(animationId);
+
+            modalEl.style.display = 'block';
+            bigScoreEl.style.display = 'block';
+            scoreLabelEl.style.display = 'block';
+
+            if (isTimeUp) {
+                gameTitleEl.innerText = "時間到！生存成功";
+                gameTitleEl.style.color = "#4ade80"; // 綠色
+                gameDescEl.style.display = 'block';
+                gameDescEl.innerHTML = `恭喜你在兩分鐘內存活了下來！<br>你的生存技巧令人驚嘆。`;
+            } else {
+                gameTitleEl.innerText = "遊戲結束";
+                gameTitleEl.style.color = "#00ffff"; // 原本的青色
+                gameDescEl.style.display = 'none';
+            }
+
+            bigScoreEl.innerText = score;
+            startGameBtn.innerText = "重新開始";
+            uiLayer.style.pointerEvents = "auto";
+        }
+
+        startGameBtn.addEventListener('click', () => {
+            init();
+            animate();
+            spawnEnemies();
+            modalEl.style.display = 'none';
+            uiLayer.style.pointerEvents = "none";
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+    </script>
+</body>
+
+</html>
