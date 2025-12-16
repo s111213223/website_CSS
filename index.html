@@ -12,45 +12,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <!-- 引入 Font Awesome 5 (用於星星圖示) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+
     <!-- 自訂 CSS 實現亮色主題和圓角效果 -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa; /* 淺色背景 (Light Gray) */
-            color: #212529; /* 深色文字 (Dark Text) */
+            background-color: #f8f9fa;
+            /* 淺色背景 (Light Gray) */
+            color: #212529;
+            /* 深色文字 (Dark Text) */
         }
 
         /* 內容區塊的風格 */
         .content-card {
-            background-color: #ffffff; /* 卡片背景白色 */
+            background-color: #ffffff;
+            /* 卡片背景白色 */
             border-radius: 1rem;
             padding: 1.5rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 淺色陰影 */
-            border: 1px solid #dee2e6; /* 輕微淺色邊框 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* 淺色陰影 */
+            border: 1px solid #dee2e6;
+            /* 輕微淺色邊框 */
         }
 
         /* 導覽列風格 */
         .navbar-custom {
-            background-color: #ffffff !important; /* 白色導覽列 */
+            background-color: #ffffff !important;
+            /* 白色導覽列 */
             border-bottom: 1px solid #dee2e6;
         }
 
         /* 技能評分星星顏色 */
         .star-filled {
-            color: #ffc107; /* Bootstrap 黃色 (不變) */
+            color: #ffc107;
+            /* Bootstrap 黃色 (不變) */
         }
 
         .star-empty {
-            color: #adb5bd; /* 灰色 */
+            color: #adb5bd;
+            /* 灰色 */
         }
 
         /* 響應式媒體嵌入 - 保持不變 */
         .media-responsive {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 比例 */
+            padding-bottom: 56.25%;
+            /* 16:9 比例 */
             height: 0;
             overflow: hidden;
             margin-bottom: 1rem;
@@ -69,24 +78,28 @@
 
         /* 頁腳風格 */
         footer {
-            background-color: #e9ecef; /* 淺灰背景 */
-            color: #6c757d; /* 深灰文字 */
+            background-color: #e9ecef;
+            /* 淺灰背景 */
+            color: #6c757d;
+            /* 深灰文字 */
             padding: 1rem 0;
             border-top: 1px solid #dee2e6;
         }
-        
+
         /* 側邊欄塊引號樣式 */
         .blockquote-custom {
-            border-left: 5px solid #0d6efd; /* Bootstrap Primary 藍色 */
+            border-left: 5px solid #0d6efd;
+            /* Bootstrap Primary 藍色 */
             padding-left: 1rem;
-            background-color: #f8f9fa; /* 淺色背景 */
+            background-color: #f8f9fa;
+            /* 淺色背景 */
         }
 
         /* 確保圖片圓角和響應式 */
         .img-fluid {
             border-radius: 0.5rem;
         }
-        
+
         /* 調整 Accordion 在淺色主題下的樣式 */
         .accordion-item {
             background-color: #ffffff;
@@ -94,13 +107,17 @@
         }
 
         .accordion-button {
-            color: #212529; /* Dark text */
-            background-color: #f8f9fa; /* Light background */
+            color: #212529;
+            /* Dark text */
+            background-color: #f8f9fa;
+            /* Light background */
         }
 
         .accordion-button:not(.collapsed) {
-            color: #0d6efd; /* Primary blue when open */
-            background-color: #e9ecef; /* Slightly darker light background when open */
+            color: #0d6efd;
+            /* Primary blue when open */
+            background-color: #e9ecef;
+            /* Slightly darker light background when open */
         }
     </style>
 </head>
@@ -134,7 +151,10 @@
                             <a class="nav-link" href="#section7">自學區</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#section8">更多資訊</a>
+                            <a class="nav-link" href="#section8">AI遊戲</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#section9">更多資訊</a>
                         </li>
                     </ul>
                 </div>
@@ -155,7 +175,7 @@
                         <h2 class="h3 fw-bold text-primary">關於我</h2>
                         <p class="text-secondary">在此部落格中，將分享我在工作上及生活中的點滴。</p>
                     </header>
-                    
+
                     <section class="d-flex align-items-center mb-4">
                         <!-- 頭像 (使用 Placeholder Image URL) -->
                         <div class="flex-shrink-0 me-4">
@@ -167,14 +187,17 @@
                             <h1 class="h2 fw-bolder mb-1">吳奇翰</h1>
                             <p class="mb-0">
                                 <em>
-                                    <a href="https://www.ntue.edu.tw/" class="text-info text-decoration-none">國立台北教育大學-----</a>數學暨資訊教育學系
+                                    <a href="https://www.ntue.edu.tw/"
+                                        class="text-info text-decoration-none">國立台北教育大學-----</a>數學暨資訊教育學系
                                 </em>
                             </p>
                         </div>
                     </section>
-                    
+
                     <section>
-                        <p class="lead">我是一位大學生，研究方向為<mark class="bg-warning text-dark rounded px-1">AI應用</mark> 和 <mark class="bg-warning text-dark rounded px-1">AI在教育上應用</mark>，除外寒暑假我也帶了不少的國小梯隊以充實我在教學上的經驗</p>
+                        <p class="lead">我是一位大學生，研究方向為<mark class="bg-warning text-dark rounded px-1">AI應用</mark> 和 <mark
+                                class="bg-warning text-dark rounded px-1">AI在教育上應用</mark>，除外寒暑假我也帶了不少的國小梯隊以充實我在教學上的經驗
+                        </p>
                         <p>我也喜歡研究其他領域的內容，如：心理學等</p>
                     </section>
                 </article>
@@ -229,10 +252,30 @@
                             <h4 class="h5 text-info mb-3">人工智慧相關</h4>
                             <!-- 使用 table-light -->
                             <table class="table table-light table-borderless">
-                                <tr><td>Langchain</td><td><script>document.write(renderStars(3));</script></td></tr>
-                                <tr><td>Tensorflow</td><td><script>document.write(renderStars(2));</script></td></tr>
-                                <tr><td>Pytorch</td><td><script>document.write(renderStars(2));</script></td></tr>
-                                <tr><td>Llamaindex</td><td><script>document.write(renderStars(1));</script></td></tr>
+                                <tr>
+                                    <td>Langchain</td>
+                                    <td>
+                                        <script>document.write(renderStars(3));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tensorflow</td>
+                                    <td>
+                                        <script>document.write(renderStars(2));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pytorch</td>
+                                    <td>
+                                        <script>document.write(renderStars(2));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Llamaindex</td>
+                                    <td>
+                                        <script>document.write(renderStars(1));</script>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
 
@@ -241,10 +284,30 @@
                             <h4 class="h5 text-info mb-3">前端相關</h4>
                             <!-- 使用 table-light -->
                             <table class="table table-light table-borderless">
-                                <tr><td>Vue.js</td><td><script>document.write(renderStars(2));</script></td></tr>
-                                <tr><td>Bootstrap 5</td><td><script>document.write(renderStars(5));</script></td></tr>
-                                <tr><td>Angular</td><td><script>document.write(renderStars(2));</script></td></tr>
-                                <tr><td>Flutter</td><td><script>document.write(renderStars(3));</script></td></tr>
+                                <tr>
+                                    <td>Vue.js</td>
+                                    <td>
+                                        <script>document.write(renderStars(2));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Bootstrap 5</td>
+                                    <td>
+                                        <script>document.write(renderStars(5));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Angular</td>
+                                    <td>
+                                        <script>document.write(renderStars(2));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Flutter</td>
+                                    <td>
+                                        <script>document.write(renderStars(3));</script>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
 
@@ -253,10 +316,30 @@
                             <h4 class="h5 text-info mb-3">後端相關</h4>
                             <!-- 使用 table-light -->
                             <table class="table table-light table-borderless">
-                                <tr><td>Python</td><td><script>document.write(renderStars(5));</script></td></tr>
-                                <tr><td>C</td><td><script>document.write(renderStars(3));</script></td></tr>
-                                <tr><td>Javascript</td><td><script>document.write(renderStars(2));</script></td></tr>
-                                <tr><td>C++</td><td><script>document.write(renderStars(3));</script></td></tr>
+                                <tr>
+                                    <td>Python</td>
+                                    <td>
+                                        <script>document.write(renderStars(5));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>C</td>
+                                    <td>
+                                        <script>document.write(renderStars(3));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Javascript</td>
+                                    <td>
+                                        <script>document.write(renderStars(2));</script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>C++</td>
+                                    <td>
+                                        <script>document.write(renderStars(3));</script>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </section>
@@ -265,7 +348,7 @@
                 <!-- 音樂、視訊、圖片作品集 -->
                 <article id="section4" class="content-card">
                     <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">作品集</h2>
-                    
+
                     <!-- 音訊介紹 -->
                     <section class="mb-5">
                         <h4 class="h5 text-info mb-3">音訊介紹</h4>
@@ -302,6 +385,17 @@
                                 </div>
                                 <p class="text-center text-secondary">Linebot Demo</p>
                             </div>
+                            <!-- 影片 3: Google Flow Demo -->
+                            <div class="col-md-12 mb-4">
+                                <div class="media-responsive">
+                                    <video controls>
+                                        <source src="assets/video/Dec_15__1717_49s_202512152132_afg55.mp4"
+                                            type="video/mp4">
+                                        您的瀏覽器不支援影片播放。
+                                    </video>
+                                </div>
+                                <p class="text-center text-secondary">Google Flow 影片</p>
+                            </div>
                         </div>
                     </section>
 
@@ -313,8 +407,8 @@
                             <div class="col-md-6">
                                 <figure class="text-center">
                                     <!-- 路徑更新: 移除 uploaded:assets.zip/ -->
-                                    <img src="assets/images/Gemini_Generated_Image_78umcp78umcp78um.png"
-                                        alt="幽暗的水池" class="img-fluid shadow">
+                                    <img src="assets/images/Gemini_Generated_Image_78umcp78umcp78um.png" alt="幽暗的水池"
+                                        class="img-fluid shadow">
                                     <figcaption class="mt-2 text-secondary">幽暗的水池 (AI 生成)</figcaption>
                                 </figure>
                             </div>
@@ -322,8 +416,8 @@
                             <div class="col-md-6">
                                 <figure class="text-center">
                                     <!-- 路徑更新: 移除 uploaded:assets.zip/ -->
-                                    <img src="assets/images/Gemini_Generated_Image_p2rh5zp2rh5zp2rh.png"
-                                        alt="壯麗的山景" class="img-fluid shadow">
+                                    <img src="assets/images/Gemini_Generated_Image_p2rh5zp2rh5zp2rh.png" alt="壯麗的山景"
+                                        class="img-fluid shadow">
                                     <figcaption class="mt-2 text-secondary">壯麗的山景</figcaption>
                                 </figure>
                             </div>
@@ -334,7 +428,7 @@
                 <!-- 自學區 (YouTube 嵌入) -->
                 <article id="section7" class="content-card">
                     <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">自學區</h2>
-                    
+
                     <div class="space-y-4">
                         <!-- 數位邏輯設計 -->
                         <div class="mb-4">
@@ -347,7 +441,7 @@
                             </div>
                             <p class="text-secondary mt-2">數位邏輯設計：廣受好評的教學，推薦必看，這堂課拯救了非常多人</p>
                         </div>
-                        
+
                         <!-- 程式設計 (C++) -->
                         <div class="mb-4">
                             <div class="media-responsive">
@@ -359,7 +453,7 @@
                             </div>
                             <p class="text-secondary mt-2">程式設計：程式語言為C++，適合初學者學習程式的課程，講得非常詳細</p>
                         </div>
-                        
+
                         <!-- 微積分系列課程 -->
                         <div class="mb-4">
                             <div class="media-responsive">
@@ -371,7 +465,7 @@
                             </div>
                             <p class="text-secondary mt-2">微積分系列課程：雖然是全英文教學，但我認為是網路上最好學習微積分的管道</p>
                         </div>
-                        
+
                         <!-- 電子學 -->
                         <div class="mb-4">
                             <div class="media-responsive">
@@ -383,12 +477,11 @@
                             </div>
                             <p class="text-secondary mt-2">電子學：適合初學者學習電子學的課程，講得非常詳細</p>
                         </div>
-                        
+
                         <!-- 線性代數系列課程 -->
                         <div class="mb-4">
                             <div class="media-responsive">
-                                <iframe
-                                    src="https://www.youtube.com/embed/xyAuNHPsq-g?si=l9DrgE4dOcc0iXuT"
+                                <iframe src="https://www.youtube.com/embed/xyAuNHPsq-g?si=l9DrgE4dOcc0iXuT"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -397,11 +490,33 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- 嵌入PDF文件與地圖 -->
                 <article id="section8" class="content-card">
+                    <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">AI遊戲</h2>
+
+                    <!-- 遊戲說明 -->
+                    <section class="mb-3">
+                        <h4 class="h5 text-info mb-3">霓虹生存戰 - Neon Survival</h4>
+                        <p class="text-secondary">
+                            這是一款射擊生存遊戲。使用 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動角色，
+                            用滑鼠瞄準並點擊左鍵射擊。消滅敵人獲得分數，小心不要被敵人碰到！
+                        </p>
+                        <div class="alert alert-info" role="alert">
+                            <strong>💡 提示：</strong> 請點擊遊戲畫面中的「開始遊戲」按鈕來開始遊戲
+                        </div>
+                    </section>
+                    <!-- 遊戲 iframe (設定適當的長寬比) -->
+                    <div class="position-relative w-100" style="padding-bottom: 75%; min-height: 500px;">
+                        <iframe src="game.html"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 0.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);"
+                            title="霓虹生存戰遊戲" allowfullscreen>
+                        </iframe>
+                    </div>
+
+                </article>
+                <!-- 嵌入PDF文件與地圖 -->
+                <article id="section9" class="content-card">
                     <h2 class="h3 fw-bold text-primary mb-4 border-bottom pb-3 border-secondary">更多資訊</h2>
-                    
+
                     <!-- PDF 文件嵌入 -->
                     <h4 class="h5 text-info mb-3">演算法文件 (PDF)</h4>
                     <div class="media-responsive mb-4" style="padding-bottom: 120%;">
@@ -429,16 +544,18 @@
                         <h3 class="h5 fw-bold text-primary">學習小貼士</h3>
                         <p class="mb-0 text-secondary">記得提前預習課程內容,並查詢相關資料以加深理解。</p>
                     </blockquote>
-                    
+
                     <!-- 互動元素 (Details) -->
                     <div class="accordion" id="accordionTips">
                         <div class="accordion-item border-secondary">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     點擊查看學習提示
                                 </button>
                             </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionTips">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionTips">
                                 <div class="accordion-body text-secondary">
                                     建議攜帶筆記本與筆，方便隨時記錄課堂中的關鍵知識點與靈感。
                                 </div>
@@ -454,8 +571,9 @@
     <!-- 頁尾區 -->
     <footer>
         <div class="container text-center">
-            <p class="mb-1">聯絡我們：<a href="mailto:s111213223@stu.ntue.edu.tw" class="text-info text-decoration-none">s111213223@stu.ntue.edu.tw</a></p>
-            <time datetime="2024-12-01" class="d-block small">最後更新日期：2024年12月1日</time>
+            <p class="mb-1">聯絡我們：<a href="mailto:s111213223@stu.ntue.edu.tw"
+                    class="text-info text-decoration-none">s111213223@stu.ntue.edu.tw</a></p>
+            <time datetime="2024-12-01" class="d-block small">最後更新日期：2025年12月16日</time>
         </div>
     </footer>
 
